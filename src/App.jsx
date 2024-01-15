@@ -1,33 +1,31 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import React, {useContext, useDebugValue, useEffect} from "react";
+import {ThemeContext} from "./main.jsx";
+import {Container} from "@mui/material";
+import DefaultLayout from "./layout/DefaultLayout.jsx";
+import HeaderCom from "./componet/HeaderCom.jsx";
+
+function MenuIcon() {
+    return null;
+}
 
 function App() {
-  const [count, setCount] = useState(0)
+    const value = useContext(ThemeContext)
+    useDebugValue(value)
+    useEffect(() => {
+        console.log(value)
+        if(value.them === 'dark'){
+            document.body.style.background = value.bg ?? '#fff';
+            document.body.style.color = value.color ?? '#000';
+        }
 
+    }, []);
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+        <HeaderCom/>
+        <Container maxWidth='xl' fixed >
+            <DefaultLayout/>
+        </Container >
     </>
   )
 }
